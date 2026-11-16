@@ -1,0 +1,442 @@
+---
+title: "Testimonials: In Their Own Words"
+description: "Letters from Bayit Miklot graduates and their families, in their own words."
+sitemap: false
+robots: "noindex, follow"
+---
+{% comment %}
+  Email-only page: linked from the newsletter, deliberately left out of the
+  menus and the sitemap, and marked noindex for search engines.
+  Styles: the "Testimonials page" section at the end of style.css (classes start with tm-).
+  To add a letter, add one entry to the LETTERS list in the script below.
+  Direct links look like /testimonials.html#letter-<id>. Never change an id once
+  a link has gone out in a newsletter.
+{% endcomment %}
+<div class="tm-page">
+
+  <section class="tm-intro">
+    <div class="tm-wrap">
+      <div class="tm-intro-inner">
+        <span class="tm-kicker">Testimonials</span>
+        <h1>In Their Own Words</h1>
+        <div class="tm-accent" aria-hidden="true"></div>
+        <p class="tm-lede">Letters from graduates and family members about what a home, a community, and a second chance made possible.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURED LETTER ===================== -->
+  <section class="tm-featured" id="tm-featured" hidden>
+    <div class="tm-wrap">
+      <div class="tm-featured-inner">
+        <span class="tm-kicker">Featured letter</span>
+        <blockquote id="tm-featured-quote"></blockquote>
+        <p class="tm-featured-by" id="tm-featured-by"></p>
+        <button type="button" class="tm-btn tm-btn-fill tm-btn-lg" id="tm-featured-open">Read the full letter</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LETTERS ===================== -->
+  <section class="tm-letters">
+    <div class="tm-wrap">
+      <div class="tm-letters-inner">
+        <div class="tm-toolbar">
+          <div class="tm-filters" id="tm-filters" role="group" aria-label="Filter letters"></div>
+          <p class="tm-count" id="tm-count" aria-live="polite"></p>
+        </div>
+        <div class="tm-grid" id="tm-grid"></div>
+        <div class="tm-more" id="tm-more" hidden>
+          <button type="button" class="tm-btn tm-btn-fill tm-btn-lg" id="tm-more-btn">Show more letters</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===================== FINAL CALL TO ACTION ===================== -->
+<section class="closing-band on-navy">
+  <p class="tagline">Everyone Deserves a Place to Belong.</p>
+  <p class="sub">Whether you&rsquo;re seeking help, referring someone you care about, volunteering your time, or investing in this mission, you can help build a future where no one has to recover alone.</p>
+  <div class="cta-button-row">
+    <a href="mailto:info@bayitmiklot.com?subject=Get%20Help%20Inquiry" class="btn-outline-white">Get Help</a>
+    <a href="/donate.html" class="btn-outline-white">Donate</a>
+    <a href="/get-involved.html" class="btn-outline-white">Become a Partner</a>
+  </div>
+</section>
+
+<!-- ===================== POP-UP LETTER ===================== -->
+<div class="tm-modal" id="tm-modal" hidden>
+  <div class="tm-backdrop" id="tm-backdrop"></div>
+  <div class="tm-dialog" role="dialog" aria-modal="true" aria-labelledby="tm-dialog-who" tabindex="-1" id="tm-dialog">
+    <div class="tm-dialog-head">
+      <div>
+        <span class="tm-kicker">Full letters</span>
+        <h2 class="tm-dialog-who" id="tm-dialog-who">In Their Own Words</h2>
+        <span class="tm-count" id="tm-hint">Scroll up or down to read the other letters</span>
+      </div>
+      <button type="button" class="tm-close" id="tm-close" aria-label="Close letter">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l12 12M14 2L2 14"/></svg>
+      </button>
+    </div>
+    <div class="tm-dialog-body" id="tm-dialog-body" tabindex="0"></div>
+    <div class="tm-dialog-foot">
+      <button type="button" class="tm-btn" id="tm-prev">&larr; Previous</button>
+      <span class="tm-position" id="tm-position"></span>
+      <button type="button" class="tm-btn" id="tm-next">Next &rarr;</button>
+    </div>
+  </div>
+</div>
+
+{% raw %}
+<script>
+(function () {
+  'use strict';
+
+  /* ========================================================================
+     THE TESTIMONIALS. To add a letter, add one entry to this list.
+
+       id       Short permanent id, lowercase letters, numbers and dashes.
+                It becomes the direct link:  /testimonials.html#letter-<id>
+                Never change an id after a link has gone out in a newsletter.
+       group    'grad', 'family' or 'community'  (decides the filter)
+       label    The attribution line, shown exactly as written here,
+                e.g. 'Bayit Miklot graduate' or 'Mother of a member'
+       excerpt  The strongest two or three sentences (about 45 words at most)
+       letter   OPTIONAL. The full letter, one string per paragraph, e.g.
+                letter: ['First paragraph.', 'Second paragraph.']
+                Left empty ( [] ), the card shows the excerpt only. Once it
+                has text, a "Read the full letter" button appears on its own.
+       featured true on the ONE entry shown in the turquoise band. That entry
+                is not repeated in the card grid.
+
+     Cards appear in the order listed here.
+     ======================================================================== */
+  var LETTERS = [
+    {
+      id: 'graduate-1', group: 'grad', featured: true,
+      label: 'Bayit Miklot graduate',
+      excerpt: '[Avi] has saved my life more times than I can count.',
+      letter: [
+        "Avi has given me endless support, even when I was hard to deal with and even while he was carrying struggles of his own. He has saved my life more times than I can count. I am grateful to him beyond words."
+      ]
+    },
+    {
+      id: 'graduate-2', group: 'grad',
+      label: 'Bayit Miklot graduate',
+      excerpt: 'Avi didn’t just give me a place to stay, he gave me hope, support, and the knowledge that I wasn’t alone.',
+      letter: [
+        "My dear friend Avi,",
+        "Today, I can honestly say that Avi is someone I call my brother for life. He has a beautiful heart. He is there when someone needs help, day or night. But what makes him truly special is that he doesn’t just make promises—he keeps them.",
+        "About a year ago, I went to rehab because I knew I needed to make a change. I had no idea where I would go afterward. A few days before my release, I heard that someone named Avi wanted to visit me. Avi showed up with a delicious kosher sandwich. It may sound small, but it meant so much to me. We sat and talked, and he told me, “Everything is going to be okay. You are not alone. When you come out, just call me. I will come pick you up.” He promised me a place to sleep, food, safety, and a chance to get back on my feet.",
+        "And the most amazing part is that Avi kept his word.",
+        "Through my ups and downs, he was patient and never gave up on me. Every Shabbat, he made sure we had meals—sometimes with people in the community, sometimes on our own. Every week, I had food, a safe place, and people around me.",
+        "He also connected me with Rabbi Epstein, who always made time for my questions and helped me through difficult moments. I am so grateful for that connection.",
+        "When I look at where I was and where I am today, I realize how important that one phone call was. Avi didn’t just give me a place to stay, he gave me hope, support, and the knowledge that I wasn’t alone. There are many people who say they will be there for you. Avi is the kind of person who shows up.",
+        "Avi, thank you and Bayit Miklot for everything you have done for me and so many others. I am proud to call you my friend, my mentor, and most importantly, my brother for life.",
+        "With love and gratitude."
+      ]
+    },
+    {
+      id: 'mother-1', group: 'family',
+      label: 'Mother of a member',
+      excerpt: 'Many well-meaning organizations in our community, and many rehab centers, were unable to help my daughter [the way Bayit Miklot did].',
+      letter: [
+        "I have just returned to Brooklyn from Dallas, Texas, where my daughter was being released from another stay in a psych ward. Avi Herman, the Founder and Director of Bayit Miklot, offered to accompany me, and I accepted.",
+        "Bayit Miklot is a home away from home for boys who are battling their demons. A building is being prepared for girls, who for now live with families in the community. Avi is available 24/7 to any of the kids who wish to speak with him, and if one of them is admitted to a hospital, he stays the night to make sure they are well taken care of. He thoroughly researches doctors when needed and will come along to the appointment. And every night, the kids sit down to a fresh-cooked supper from “Chef” Avi.",
+        "Wise and intuitive, he sees the broken, shattered souls split into a million pieces, and he understands the hurt that great traumas inflict.",
+        "Many well-meaning organizations in our community, and many rehab centers, were unable to help my daughter. With time she became more entrenched in shame, pain, and self-sabotage. The enemy was the family, and the second enemy, the world. Despair lived in her head. The daughter I knew was gone. A glitch, and in her place was a mean stranger.",
+        "By the grace of G-d, in walked Avi Herman, and everything changed. My daughter found peace and acceptance. When someone new arrives, Avi sits down with his rebbe, a therapist, and some wise people of the community to outline a plan for that individual. Each week there is a spiritual learning group open to all, and on another night a group session around the table that is always lively and healing. There are trips for those who wish to join, and the kids come back happy, looking forward to tomorrow. Walk into one of the houses and you will usually hear Yiddishe music playing, old or new.",
+        "Day by day, you see the difference. I left Texas calm, knowing that my daughter was in very good hands."
+      ]
+    },
+    {
+      id: 'family-1', group: 'family',
+      label: 'Family member',
+      excerpt: 'Avi Herman personally traveled to New York to bring my brother from the state hospital to Dallas.',
+      letter: [
+        "My brother was homeless.",
+        "He had endured years of isolation and the painful stigma of mental illness. He felt ashamed, misunderstood, and alone. After years in and out of state hospitals, he nearly lost his life on the streets of New York during last winter’s bitter cold.",
+        "When he was admitted to the hospital, I searched for more than a place to live. I wanted a warm, loving home where he would be heard, understood, and accepted without judgment. A Shomer Shabbos home, rooted in Torah values, where Jewish life and Torah learning would be a priority.",
+        "Then someone told me about Bayit Miklot in Dallas—a place committed to breaking the stigma of mental illness and addiction through unconditional love and individualized care. Avi Herman personally traveled to New York to bring my brother from the state hospital to Dallas. Over two days of driving and overnight hotel stays, he made sure my brother was safe, comfortable, and taking his medication.",
+        "I soon learned that this was simply how Bayit Miklot operates. Avi and Gideon have worked tirelessly, meeting needs both large and small: doctor’s appointments, clothing, medication, encouragement, and help finding purpose. Together with Jewish Family Services, they have helped residents access medical care and other essential support, always with dignity and independence in mind.",
+        "But sometimes the smallest gestures reveal the greatest love.",
+        "This year my brother was delighted to have his own seat in shul for Rosh Hashanah and his own lulav and esrog for Sukkos. Avi even called me to make sure I sent a kittel, because he had noticed my brother felt uncomfortable without one on Rosh Hashanah.",
+        "Someone had noticed. Someone understood. Someone cared enough to do something about it. For families who have watched a loved one struggle and feared for their future, Bayit Miklot is a lifeline. More than housing, it is a haven of compassion, belonging, and hope—a true home of refuge.",
+        "My heartfelt wish is that Bayit Miklot continues to flourish and reach the many suffering souls still searching for a helping hand.",
+        "Because sometimes, angels don’t have wings. Sometimes, they live in Dallas, Texas."
+      ]
+    },
+    {
+      id: 'member-1', group: 'grad',
+      label: 'Bayit Miklot member',
+      excerpt: 'These people need lots of help, and it’s tremendous what you have been doing for them, myself included.',
+      letter: [
+        "I want you to know that I appreciate you and all that you do for me and the people in the house. I know sometimes it’s a struggle; with the few new people coming in, there have been a lot of adjustments. These people need lots of help, and it’s tremendous what you have been doing for these people, myself included, so I just want you to know that I see and appreciate that you are there for us. From the bottom of my heart, thank you."
+      ]
+    },
+    {
+      id: 'rabbi-fox', group: 'community',
+      label: 'Rabbi Fox, Head of DATA Dallas',
+      excerpt: 'We are enamored by the sincerity and dedication of [the members] to persevere on their life journey... This is a unique and effective program.',
+      letter: [
+        "I don’t know of anything like this. Helping Yidden truly rehabilitate in a healthy, growth-oriented way with real results. We have hosted Avi and the chevra numerous times, and we are enamored by their sincerity and dedication to persevere on their life journey and spiritual path!",
+        "This is a unique and effective program worth supporting in any way possible. Avi Herman is a capable leader who will guide this program to even greater success!"
+      ]
+    },
+    {
+      id: 'member-2', group: 'grad',
+      label: 'Bayit Miklot member',
+      excerpt: 'This organization is amazing.',
+      letter: [
+        "Bayit Miklot basically helped me with a roof over my head and food. I was able to find a job, I was able to find a good therapist, and I feel I am healing. This organization is amazing."
+      ]
+    }
+  ];
+
+  /* Filters, in display order. A filter with no letters is left out automatically. */
+  var GROUPS = [
+    { id: 'all',       label: 'All' },
+    { id: 'grad',      label: 'Graduates & members' },
+    { id: 'family',    label: 'Parents & family' },
+    { id: 'community', label: 'Community' }
+  ];
+
+  var PER_PAGE = 6;            /* cards shown before "Show more letters" */
+  var HASH_PREFIX = 'letter-'; /* direct links look like #letter-<id> */
+
+  /* ======================== No edits needed below ======================== */
+
+  var QUOTE_SVG = '<svg class="tm-quote-mark" aria-hidden="true" width="30" height="24" viewBox="0 0 30 24"><path d="M0 24V13.5C0 6 4 1.4 11.5 0l1.3 3.2C8.9 4.4 6.9 6.9 6.6 10H12v14H0zm17 0V13.5C17 6 21 1.4 28.5 0l1.3 3.2c-3.9 1.2-5.9 3.7-6.2 6.8H29v14H17z"/></svg>';
+
+  var state = { filter: 'all', shown: PER_PAGE, openId: null, opener: null };
+
+  function $(id) { return document.getElementById(id); }
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+  function hasLetter(l) { return !!(l.letter && l.letter.length); }
+  /* The featured entry lives in the turquoise band, so the grid leaves it out. */
+  function gridList(filter) { return inFilter(filter).filter(function (l) { return !l.featured; }); }
+  function inFilter(filter) {
+    return filter === 'all' ? LETTERS.slice() : LETTERS.filter(function (l) { return l.group === filter; });
+  }
+  function byId(id) {
+    for (var i = 0; i < LETTERS.length; i++) if (LETTERS[i].id === id) return LETTERS[i];
+    return null;
+  }
+
+  /* ---- Filters ---- */
+  function renderFilters() {
+    var box = $('tm-filters');
+    box.textContent = '';
+    GROUPS.forEach(function (g) {
+      var n = gridList(g.id).length;
+      if (!n) return;
+      var b = el('button', 'tm-btn', g.label + ' (' + n + ')');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(g.id === state.filter));
+      b.addEventListener('click', function () {
+        state.filter = g.id;
+        state.shown = PER_PAGE;
+        renderFilters();
+        renderGrid();
+      });
+      box.appendChild(b);
+    });
+  }
+
+  /* ---- Card grid ---- */
+  function renderGrid() {
+    var list = gridList(state.filter);
+    var visible = list.slice(0, state.shown);
+    var grid = $('tm-grid');
+    grid.textContent = '';
+    visible.forEach(function (l) {
+      var card = el('article', 'tm-card');
+      var top = el('div', 'tm-card-top');
+      top.innerHTML = QUOTE_SVG;
+      card.appendChild(top);
+      card.appendChild(el('p', 'tm-excerpt', l.excerpt));
+      var foot = el('div', 'tm-card-foot');
+      foot.appendChild(el('p', 'tm-by', '— ' + l.label));
+      if (hasLetter(l)) {
+        var btn = el('button', 'tm-btn', 'Read the full letter');
+        btn.type = 'button';
+        btn.setAttribute('aria-label', 'Read the full letter from ' + l.label);
+        btn.addEventListener('click', function () { openLetter(l.id, btn); });
+        foot.appendChild(btn);
+      }
+      card.appendChild(foot);
+      grid.appendChild(card);
+    });
+    $('tm-count').textContent = 'Showing ' + visible.length + ' of ' + list.length;
+    $('tm-more').hidden = visible.length >= list.length;
+  }
+
+  /* ---- Featured band ---- */
+  function renderFeatured() {
+    var f = LETTERS.filter(function (l) { return l.featured; })[0];
+    if (!f) return;
+    $('tm-featured-quote').textContent = '“' + f.excerpt + '”';
+    $('tm-featured-by').textContent = '— ' + f.label;
+    $('tm-featured-open').hidden = !hasLetter(f);
+    $('tm-featured-open').addEventListener('click', function () { openLetter(f.id, $('tm-featured-open')); });
+    $('tm-featured').hidden = false;
+  }
+
+  /* ---- Pop-up: every letter sits in one scrolling window. It opens at the
+          chosen letter; the reader scrolls up or down (or uses Previous / Next)
+          to reach the others. ---- */
+  var built = false;
+  function navList() { return LETTERS.filter(hasLetter); } /* only entries that have a full letter */
+  function reduceMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+  function buildLetters() {
+    if (built) return;
+    var body = $('tm-dialog-body');
+    body.textContent = '';
+    navList().forEach(function (l) {
+      var sec = el('section', 'tm-letter');
+      sec.setAttribute('data-id', l.id);
+      var head = el('div', 'tm-letter-head');
+      head.innerHTML = QUOTE_SVG;
+      head.appendChild(el('h3', 'tm-letter-who', l.label));
+      sec.appendChild(head);
+      l.letter.forEach(function (p) { sec.appendChild(el('p', '', p)); });
+      body.appendChild(sec);
+    });
+    built = true;
+  }
+  function sections() {
+    return Array.prototype.slice.call($('tm-dialog-body').querySelectorAll('.tm-letter'));
+  }
+  function sectionFor(id) {
+    return sections().filter(function (sec) { return sec.getAttribute('data-id') === id; })[0];
+  }
+  function showPosition() {
+    var list = navList();
+    var idx = list.indexOf(byId(state.openId));
+    $('tm-position').textContent = 'Letter ' + (idx + 1) + ' of ' + list.length;
+    var single = list.length < 2;
+    $('tm-prev').hidden = single;
+    $('tm-next').hidden = single;
+    $('tm-hint').hidden = single;
+  }
+  function scrollToLetter(id, smooth) {
+    var sec = sectionFor(id);
+    if (!sec) return;
+    var body = $('tm-dialog-body');
+    var top = sec.offsetTop + (sec.previousElementSibling ? 1 : 0); /* +1 tucks the divider line out of view */
+    if (smooth && body.scrollTo && !reduceMotion()) body.scrollTo({ top: top, behavior: 'smooth' });
+    else body.scrollTop = top;
+  }
+  /* As the reader scrolls, track which letter is at the top of the window. */
+  function onBodyScroll() {
+    if (!state.openId) return;
+    var body = $('tm-dialog-body');
+    var secs = sections();
+    if (!secs.length) return;
+    var line = body.scrollTop + 80;
+    var current = secs[0];
+    secs.forEach(function (sec) { if (sec.offsetTop <= line) current = sec; });
+    var id = current.getAttribute('data-id');
+    if (id !== state.openId) {
+      state.openId = id;
+      showPosition();
+      setHash(id);
+    }
+  }
+  function setHash(id) {
+    var url = id ? '#' + HASH_PREFIX + id : window.location.pathname + window.location.search;
+    try { history.replaceState(null, '', url); } catch (e) { /* ignore */ }
+  }
+  function openLetter(id, opener) {
+    var target = byId(id);
+    if (!target || !hasLetter(target)) return;
+    if (opener) state.opener = opener;
+    buildLetters();
+    state.openId = id;
+    $('tm-modal').hidden = false;
+    document.body.classList.add('tm-locked');
+    /* Let the last letter reach the top of the window even when it is short. */
+    var secs = sections();
+    secs[secs.length - 1].style.minHeight = $('tm-dialog-body').clientHeight + 'px';
+    scrollToLetter(id, false);
+    showPosition();
+    setHash(id);
+    $('tm-dialog').focus();
+    /* Web fonts can finish loading just after the pop-up opens (for example on
+       a first visit from a newsletter link) and shift the letters down.
+       Re-align once they are ready. */
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        if (state.openId !== id) return;
+        var all = sections();
+        all[all.length - 1].style.minHeight = $('tm-dialog-body').clientHeight + 'px';
+        scrollToLetter(id, false);
+      });
+    }
+  }
+  function closeLetter() {
+    if (!state.openId) return;
+    state.openId = null;
+    $('tm-modal').hidden = true;
+    document.body.classList.remove('tm-locked');
+    setHash(null);
+    if (state.opener && document.body.contains(state.opener)) state.opener.focus();
+    state.opener = null;
+  }
+  function step(dir) {
+    var list = navList();
+    var idx = list.indexOf(byId(state.openId));
+    if (idx < 0) return;
+    var id = list[(idx + dir + list.length) % list.length].id;
+    state.openId = id;
+    showPosition();
+    setHash(id);
+    scrollToLetter(id, true);
+  }
+  function openFromHash() {
+    var h = decodeURIComponent((window.location.hash || '').replace(/^#/, ''));
+    if (h.indexOf(HASH_PREFIX) !== 0) return;
+    var id = h.slice(HASH_PREFIX.length);
+    if (byId(id) && id !== state.openId) openLetter(id, null);
+  }
+
+  $('tm-close').addEventListener('click', closeLetter);
+  $('tm-dialog-body').addEventListener('scroll', onBodyScroll, { passive: true });
+  $('tm-backdrop').addEventListener('click', closeLetter);
+  $('tm-prev').addEventListener('click', function () { step(-1); });
+  $('tm-next').addEventListener('click', function () { step(1); });
+  $('tm-more-btn').addEventListener('click', function () {
+    state.shown += PER_PAGE;
+    renderGrid();
+  });
+
+  /* Esc closes; Tab stays inside the pop-up while it is open */
+  $('tm-modal').addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { e.preventDefault(); closeLetter(); return; }
+    if (e.key !== 'Tab') return;
+    var nodes = $('tm-dialog').querySelectorAll('button:not([hidden]), [tabindex="0"]');
+    if (!nodes.length) return;
+    var first = nodes[0], last = nodes[nodes.length - 1];
+    var active = document.activeElement;
+    if (e.shiftKey && (active === first || active === $('tm-dialog'))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+  });
+
+  window.addEventListener('hashchange', openFromHash);
+
+  renderFeatured();
+  renderFilters();
+  renderGrid();
+  openFromHash();
+})();
+</script>
+{% endraw %}

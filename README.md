@@ -52,6 +52,29 @@ The dark colors are the `:root[data-theme="dark"]` block near the end of
 `style.css`. The comment above that block explains how to turn dark mode on for
 everyone later, so it follows each visitor's system setting.
 
+## Testimonials page (email only)
+
+`testimonials.html` is reached only from newsletter links. It is deliberately
+not in the menus or the sitemap, and it tells search engines not to index it
+(`robots: "noindex, follow"` in its front matter). Its styles are the
+"Testimonials page" section at the end of `style.css`.
+
+**To add a letter:** add one entry to the `LETTERS` list near the top of the
+script in `testimonials.html`. The comments there explain each field.
+
+**Direct links** open a specific letter. Never change an `id` once its link has
+gone out in a newsletter.
+
+| Letter | Link |
+|---|---|
+| Bayit Miklot graduate (featured) | `https://bayitmiklot.com/testimonials.html#letter-graduate-1` |
+| Bayit Miklot graduate | `https://bayitmiklot.com/testimonials.html#letter-graduate-2` |
+| Mother of a member | `https://bayitmiklot.com/testimonials.html#letter-mother-1` |
+| Family member | `https://bayitmiklot.com/testimonials.html#letter-family-1` |
+| Bayit Miklot member | `https://bayitmiklot.com/testimonials.html#letter-member-1` |
+| Rabbi Fox, Head of DATA Dallas | `https://bayitmiklot.com/testimonials.html#letter-rabbi-fox` |
+| Bayit Miklot member | `https://bayitmiklot.com/testimonials.html#letter-member-2` |
+
 ## Add a press release
 
 1. Copy `_press/2026-01-01-example-press-release.md` to
